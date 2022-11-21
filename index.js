@@ -41,9 +41,8 @@ async function credit(req, res) {
     const sender_wallet = await DirectSecp256k1HdWallet.fromMnemonic(sender.mnemonic, { prefix: addressPrefix });
     const client = await SigningCosmWasmClient.connectWithSigner(constantData.rpc, sender_wallet);
 
-    const r = await client.sendTokens(sender.address, address, [coin(defaultTokenAmount, defaultTokenDenom)], execFee);
-    console.log(r)
-    return res.json(r)
+    const _ = await client.sendTokens(sender.address, address, [coin(defaultTokenAmount, defaultTokenDenom)], execFee);
+    return "ok";
 }
 
 async function getStatus(_req, res) {
