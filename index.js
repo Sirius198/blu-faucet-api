@@ -46,7 +46,9 @@ async function credit(req, res) {
 }
 
 async function getStatus(_req, res) {
-    return res.json('ok')
+    return res.json({
+        status: 'ok'
+    })
 }
 
 app.post('/credit', credit);
