@@ -39,7 +39,7 @@ async function getStatus(_req, res) {
     return res.json('ok')
 }
 
-const allowedOrigins = ['faucet.bluwallet.app', 'www.example2.com'];
+const allowedOrigins = ['https://faucet.bluwallet.app', 'www.example2.com'];
 
 app.post('/credit', credit);
 app.get('/status', getStatus);
