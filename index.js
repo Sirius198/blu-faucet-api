@@ -6,6 +6,14 @@ const cors = require('cors');
 require('dotenv').config()
 
 const app = express();
+
+const allowedOrigins = ['https://faucet.bluwallet.app'];
+app.use(cors({
+    origin: 'https://faucet.bluwallet.app',
+    optionsSuccessStatus: 200
+}));
+
+// Default Params
 const defaultTokenAmount = process.env.FAUCET_TOKEN_AMOUNT || "10000";
 const defaultTokenDenom = process.env.FAUCET_TOKEN_DENOM || "ublu";
 const port = process.env.PORT || 4000;
@@ -40,15 +48,8 @@ async function getStatus(_req, res) {
     return res.json('ok')
 }
 
-const allowedOrigins = ['https://faucet.bluwallet.app', 'www.example2.com'];
-
 app.post('/credit', credit);
 app.get('/status', getStatus);
-// app.use(cors());
-app.use(cors({
-    origin: 'https://faucet.bluwallet.app',
-    optionsSuccessStatus: 200
-}))
 app.listen(port, () => {
     // console.log('Faucet api is listening on port 4000.')
 });
