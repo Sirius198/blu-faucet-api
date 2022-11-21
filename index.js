@@ -41,6 +41,7 @@ async function getStatus(_req, res) {
 
 app.post('/credit', credit);
 app.get('/status', getStatus);
+app.use(cors());
 // app.use(cors({
 //     origin: "*",
 //     optionsSuccessStatus: 200
