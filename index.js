@@ -8,7 +8,7 @@ require('dotenv').config()
 const app = express();
 const defaultTokenAmount = process.env.FAUCET_TOKEN_AMOUNT || "10000";
 const defaultTokenDenom = process.env.FAUCET_TOKEN_DENOM || "ublu";
-const port = process.env.PORT || 9090;
+const port = process.env.PORT || 4000;
 const sender = {
     mnemonic: process.env.FAUCET_MNEMONIC,
     address: process.env.FAUCET_ADDRESS
