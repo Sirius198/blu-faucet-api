@@ -19,6 +19,7 @@ const constantData = {
 const addressPrefix = process.env.FAUCET_ADDRESS_PREFIX || "blu"
 
 async function credit(req, res) {
+    console.log('incoming...')
     const { denom, address } = req.query;
     if (denom != defaultTokenDenom) {
         return res.json({
