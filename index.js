@@ -25,8 +25,12 @@ const sender = {
 }
 const constantData = {
     rpc: process.env.RPC,
+    cooldownTime: 3600 * 4,
 };
 const addressPrefix = process.env.FAUCET_ADDRESS_PREFIX || "blu"
+
+// Address counter
+let addressCounter = new Map();
 
 async function credit(req, res) {
     const { denom, address } = req.body;
@@ -36,12 +40,26 @@ async function credit(req, res) {
         })
     }
 
+    // Check cooldown
+    const entry = addressCounter.get(address);
+    if (entry !== undefined) {
+        const cooldownTimeMs = constantData.cooldownTime * 1000;
+        if (entry.getTime() + cooldownTimeMs > Date.now()) {
+            return res.json("cooldown error");
+        }
+    }
+
     const gasPrice = GasPrice.fromString("0.05" + defaultTokenDenom);
     const execFee = calculateFee(500000, gasPrice);
     const sender_wallet = await DirectSecp256k1HdWallet.fromMnemonic(sender.mnemonic, { prefix: addressPrefix });
     const client = await SigningCosmWasmClient.connectWithSigner(constantData.rpc, sender_wallet);
 
-    const _ = await client.sendTokens(sender.address, address, [coin(defaultTokenAmount, defaultTokenDenom)], execFee);
+    try {
+        const _ = await client.sendTokens(sender.address, address, [coin(defaultTokenAmount, defaultTokenDenom)], execFee);
+        addressCounter.set(address, new Date());
+    } catch (error) {
+        return res.json("error");
+    }
     return res.json('ok');
 }
 
