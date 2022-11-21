@@ -27,8 +27,7 @@ const constantData = {
 const addressPrefix = process.env.FAUCET_ADDRESS_PREFIX || "blu"
 
 async function credit(req, res) {
-    console.log('incoming...')
-    const { denom, address } = req.query;
+    const { denom, address } = req.body;
     if (denom != defaultTokenDenom) {
         return res.json({
             status: "Denom mismatch"
