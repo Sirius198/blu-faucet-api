@@ -41,10 +41,10 @@ async function getStatus(_req, res) {
 
 app.post('/credit', credit);
 app.get('/status', getStatus);
-app.use(cors({
-    origin: "*",
-    optionsSuccessStatus: 200
-}))
+// app.use(cors({
+//     origin: "*",
+//     optionsSuccessStatus: 200
+// }))
 app.listen(port, () => {
     // console.log('Faucet api is listening on port 4000.')
 });
