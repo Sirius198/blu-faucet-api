@@ -42,7 +42,7 @@ async function credit(req, res) {
     const client = await SigningCosmWasmClient.connectWithSigner(constantData.rpc, sender_wallet);
 
     const _ = await client.sendTokens(sender.address, address, [coin(defaultTokenAmount, defaultTokenDenom)], execFee);
-    return "ok";
+    return res.json('ok');
 }
 
 async function getStatus(_req, res) {
