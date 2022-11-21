@@ -7,11 +7,12 @@ require('dotenv').config()
 
 const app = express();
 
-const allowedOrigins = ['https://faucet.bluwallet.app'];
-app.use(cors({
-    origin: 'https://faucet.bluwallet.app',
-    optionsSuccessStatus: 200
-}));
+// const allowedOrigins = ['https://faucet.bluwallet.app'];
+// app.use(cors({
+//     origin: 'https://faucet.bluwallet.app',
+//     optionsSuccessStatus: 200
+// }));
+app.use(cors());
 app.use(express.json());
 
 // Default Params
@@ -41,6 +42,7 @@ async function credit(req, res) {
     const client = await SigningCosmWasmClient.connectWithSigner(constantData.rpc, sender_wallet);
 
     const r = await client.sendTokens(sender.address, address, [coin(defaultTokenAmount, defaultTokenDenom)], execFee);
+    console.log(r)
     return res.json(r)
 }
 
