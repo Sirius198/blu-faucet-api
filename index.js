@@ -12,6 +12,7 @@ app.use(cors({
     origin: 'https://faucet.bluwallet.app',
     optionsSuccessStatus: 200
 }));
+app.use(express.json());
 
 // Default Params
 const defaultTokenAmount = process.env.FAUCET_TOKEN_AMOUNT || "10000";
